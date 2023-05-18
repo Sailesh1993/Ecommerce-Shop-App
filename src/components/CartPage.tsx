@@ -1,11 +1,11 @@
 import { FC} from 'react';
 import { useSelector } from 'react-redux';
-import { AppState } from '../types/appState';
-import { CartItem } from '../types/cart';
+import { AppState } from '../types/AppState';
+import { Cart } from '../types/Cart';
 
 
 const CartPage: FC = () => {
-    const cart = useSelector<AppState, CartItem[]>(state => state.cart);
+    const cart = useSelector<AppState, Cart[]>(state => state.cart);
   
     return (
       <div>

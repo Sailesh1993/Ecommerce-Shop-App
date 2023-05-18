@@ -1,7 +1,7 @@
 import { FC} from 'react';
 import { useSelector } from 'react-redux';
-import { User } from '../types/user';
-import { AppState } from '../types/appState';
+import { User } from '../types/User';
+import { AppState } from '../types/AppState';
 
 
 const ProfilePage: FC = () => {

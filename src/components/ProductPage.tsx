@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Product } from '../types/product';
+import { Product } from '../types/Product';
 
 const ProductPage: FC = () => {
     const { productId } = useParams<{ productId: string }>();

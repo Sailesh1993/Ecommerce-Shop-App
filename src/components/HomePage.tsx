@@ -1,5 +1,5 @@
-import { Dispatch, FC, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { Product } from '../types/product';
+import { Dispatch, SetStateAction, useMemo} from 'react';
+import { Product } from '../types/Product';
 import Navbar from './Navbar';
 import { Avatar, Box } from '@mui/material';
 import { GridCellParams } from '@mui/x-data-grid'

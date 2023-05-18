@@ -1,10 +1,11 @@
-import { CartItem } from "./cart";
-import { Product } from "./product";
-import { User } from "./user";
+
+import { Cart } from "./Cart";
+import { Product } from "./Product"
+import { User } from "./User";
 
 export type AppState = {
     products: Product[];
-    cart: CartItem[];
+    cart: Cart[];
     user: User | null;
     loading: boolean;
   };

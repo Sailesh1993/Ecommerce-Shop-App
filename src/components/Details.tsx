@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Product } from "../types/product"
+import { Product } from "../types/Product"
 import axios from "axios";
 import { Box, List, ListItem, ListItemText } from "@mui/material";
 

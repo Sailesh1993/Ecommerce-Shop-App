@@ -1,21 +1,16 @@
-import { TextField, colors } from '@mui/material';
+import { TextField} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-
 
 interface SearchBarProps {
   searchText: string | null;
   setSearchText: React.Dispatch<React.SetStateAction<string | null>>;
 }
-
 export function SearchBar({ searchText, setSearchText }: SearchBarProps)
 {
-  
     const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     {
-        console.log(event.target.value)
         setSearchText(event.target.value);
     };
-
     const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const inputElement = document.getElementById('search-field') as HTMLInputElement;
