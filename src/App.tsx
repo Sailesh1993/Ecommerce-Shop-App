@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import HomePage from './components/HomePage'
-import { Product } from './types/Product';
-import axios from 'axios';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Details from './components/Details';
-import { useDispatch, useSelector } from 'react-redux';
-import { GlobalState } from './redux/store';
 import useAppSelector from './hooks/useAppSelector';
-import { createUser, emptyUserReducer, fetchAllUsers, sortByEmail, updateOneUser, updateUserReducer } from './redux/reducers/usersReducer';
+import { createUser, 
+  emptyUserReducer, 
+  fetchAllUsers,sortByEmail, 
+  updateOneUser, 
+  updateUserReducer } from './redux/reducers/usersReducer';
 import useAppDispatch from './hooks/useAppDispatch';
 import { User } from './types/User';
+import { IconButton } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { addOneFav, removeFromFav } from './redux/reducers/favReducer';
 
-
+const getFilterList = (users:User[], search:string)=>{
+  return users.filter(user=>user.name.toLowerCase().includes(search.toLocaleUpperCase()))
+}
 const App = () => {
   const [sort, setSort] = useState<"asc"|"dsc">("asc")
-  const users = useAppSelector(state => state.usersReducer)
-  console.log(users)
+  const [search,setSearch] = useState("")
+  const {users,loading, error} = useAppSelector(state => state.usersReducer)
+  const filterUsers = getFilterList(users, search)
+  const favIds = useAppSelector(state => state.favReducer)
+  const favList = users.filter(users =>favIds.includes(users.id))
+
   const dispatch = useAppDispatch()
  
 const addUser = ()=>{
-    /* const result = createUser({})//create an action object
-    console.log(result) */
     dispatch(createUser(
       {
         id: 2,
@@ -54,50 +58,49 @@ const sortByEmailDynamic = ()=>{
   dispatch(sortByEmail(sort))
   setSort(sort === "asc" ? "dsc":"asc")
 }
- /*  const [data, getData] = useState<Product[]>([]);
-  const [selectedRowId, setSelectedRowId] = useState<number | null>(null)
-  const [searchText, setSearchText] = useState<string | null>(null)
-  useEffect(()=>{
-    if(!searchText){
-      const fetchData = async ()=>{
-        try{
-          const response = await axios.get<Product[]>(`https://api.escuelajs.co/api/v1/products?by_title=${searchText}`)
-          getData(response.data)
-        }
-        catch(error){
-          console.log(error)
-        }
-      }
-      fetchData() 
-    } else{
-      const fetchData = async ()=>{
-        try{
-          const response = await axios.get<Product[]>(' https://api.escuelajs.co/api/v1/products')
-          getData(response.data)
-        } catch(error){
-          console.log(error)
-        }
-      }
-      fetchData()
-    }
-  }, [searchText]) */
+const onSearchChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+  setSearch(e.target.value)
+}
+const toggleFav = (id: number) =>{
+  if(favIds.includes(id)){
+    dispatch(removeFromFav(id))
+  } else{
+    dispatch(addOneFav(id))
+  }
+}
+ 
   return (
     <div>
       <button onClick={addUser}>Create new User
       </button>
       <button onClick={updateUser}>Update one</button>
       <button onClick={deleteAllUsers}>EmptyUserList</button>
-      {users.map(user=>(
-        <p key={user.id}>{user.email}</p>
+      {filterUsers.map(user=>(
+        <div>
+          <p key={user.id}>{user.name}{user.email}</p>
+          <IconButton 
+          onClick={()=>toggleFav(user.id)}
+          color={favIds.includes(user.id)?"success":"info"}>
+            <FavoriteIcon/>
+          </IconButton>
+        </div>
       ))}
       <button onClick={sortByEmailDynamic}>Sort by email Asc</button>
+      <input
+      type='text'
+      name='search'
+      value={search}
+      onChange={onSearchChange}
+      />
+      {/* <div>
+        <h3>Favourite list</h3>
+        {favList.map(
+          fav=>(
+            <p>{fav.name}</p>
+          )
+        )}
+      </div> */}
     </div>)
-    {/* <Router>
-      <Routes>
-        <Route path='/' element={<HomePage data={data} selectedRowId={selectedRowId} setSelectedRowId={setSelectedRowId} searchText={searchText} setSearchText={setSearchText}/>}/>
-        <Route path={`/${selectedRowId}`} element={<Details selectedRowId={selectedRowId} />} />
-      </Routes>
-    </Router> */}
 }
 
 export default App
