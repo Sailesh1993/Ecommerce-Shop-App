@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Product } from "../../types/Product";
 import axios, { AxiosError } from "axios";
 
@@ -12,9 +12,6 @@ const initialState: ProductReducer ={
     error: "",
     products: []
 } 
-/**
- * This function will read products from api and apply the data to the state
- */
 export const fetchAllProducts = createAsyncThunk(
     "fetchAllProducts",
     async()=>{
@@ -32,7 +29,38 @@ const productsSlice = createSlice({
     name: "products",
     initialState,
     reducers:{
-    }, // List of methods to modify state
+        createProduct: (state, action:PayloadAction<Product>)=>{
+            state.products.push(action.payload)
+        },
+        removeProduct: (state, action: PayloadAction<number>)=>{
+            const id = action.payload
+            return{
+                ...state,
+                products: state.products.filter(product =>product.id !==id)
+            }
+        },
+        emptyProductsReducer: (state)=>{
+            return{
+                ...state,
+                products:[]
+            }
+        },
+        updateProduct: (state, action: PayloadAction<Product>) => {
+            return {
+                ...state,
+                products: state.products.map(product => 
+                    product.id !== action.payload.id ? product : action.payload)
+            }
+        },
+        sortProductsByPrice: (state, action: PayloadAction<string>)=>{
+            if(action.payload === "dsc"){
+                state.products.sort((a,b)=> b.price - a.price)
+            }
+            else if(action.payload === "asc"){
+                state.products.sort((a,b)=> a.price - b.price)
+            }
+        }
+    }, 
     extraReducers: (build) => {
         build
             .addCase(fetchAllProducts.pending,(state, action) =>{
@@ -52,5 +80,13 @@ const productsSlice = createSlice({
             })
     } 
 })
+export const 
+    {
+        createProduct,
+        removeProduct,
+        emptyProductsReducer,
+        updateProduct,
+        sortProductsByPrice
+    } = productsSlice.actions
 const productsReducer = productsSlice.reducer
 export default productsReducer
