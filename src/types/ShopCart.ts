@@ -1,5 +1,4 @@
-import { Product } from "./Product";
-import { ProductsInCart } from "./ProductsInCart";
+import ProductsInCart from "./ProductsInCart";
 
 export interface ShopCart{
   id: string,

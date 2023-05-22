@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {ShopCart } from "../../types/ShopCart";
-import { ProductsInCart } from "../../types/ProductsInCart";
+import ProductsInCart from "../../types/ProductsInCart";
+
 
 const initialState :  ShopCart ={
     id:"",
@@ -13,7 +14,8 @@ const shopCartSlice = createSlice({
     initialState: initialState,
     reducers:{
         addProduct:(state, action)=>{
-            const item = state.productsInCart.find(entry=> entry.product.id === action.payload.id)
+            const item = state.productsInCart.find(
+                entry => entry.product.id === action.payload.id)
             if(item) item.amount +=1
             else{
                 const newEntry: ProductsInCart ={
@@ -26,11 +28,14 @@ const shopCartSlice = createSlice({
         removeProduct: (state,action: PayloadAction<number>) => {
             return{
                 ...state,
-                productsInCart: state.productsInCart.filter(entry => entry.product.id !== action.payload)
+                productsInCart: state.productsInCart.filter(
+                entry => entry.product.id !== action.payload)
             }
         },
-        updateProduct: (state, action: PayloadAction<{id:number, amount: number}>)=>{
-            const item = state.productsInCart.find((entry => entry.product.id === action.payload.id))
+        updateProduct: (state, action: PayloadAction<{id:number, amount: number}>)=>
+        {
+            const item = state.productsInCart.find((entry => 
+                entry.product.id === action.payload.id))
             if(item){
                 item.amount = action.payload.amount
             }
