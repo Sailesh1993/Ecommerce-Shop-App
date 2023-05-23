@@ -5,5 +5,5 @@ export interface ShopCart{
   creationAt:string,
   updateAt:string,
   productsInCart:ProductsInCart[]
-  }
+}
   

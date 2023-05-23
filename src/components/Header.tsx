@@ -12,7 +12,7 @@ const Header = ()=>{
     const navigate = useNavigate()
 
     return(
-        <AppBar sx={{height: '80px',backgroundColor: 'secondary.main'}}>
+        <AppBar sx={{height: '80px',backgroundColor: '#fff'}}>
             <Toolbar sx={{justifyContent: 'space-between'}}>
             <Link variant='body2' component={RouterLink} to='/' underline="none"></Link>
             <Box role='navigation' sx={{
@@ -23,7 +23,7 @@ const Header = ()=>{
                 <Link variant='body2' component={RouterLink} to='/' underline="none">
                     HOME
                 </Link>
-                <Link variant='body2' component={RouterLink} to='/products' underline="none">
+                <Link variant='body2' component={RouterLink} to='products' underline="none">
                     PRODUCTS
                 </Link>
                 <Box sx={{position: 'relative'}}>

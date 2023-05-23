@@ -1,7 +1,6 @@
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from "./pages/HomePage"
-import ProductsPage from './pages/ProductsPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import { StyledEngineProvider } from '@mui/material';
 
@@ -12,7 +11,7 @@ const router = createBrowserRouter([
     children:[
       {
         path: 'products',
-        element: <ProductsPage />
+        element: <Home />
       },
       {
         path: 'shopping-cart',

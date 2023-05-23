@@ -1,6 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Product } from "../../types/Product";
 import axios, { AxiosError } from "axios";
+import CreateProduct from "../../types/NewProduct";
+import { ProductUpdate } from "../../types/ProductUpdate";
+
 
 interface ProductReducer{
     loading: boolean
@@ -25,31 +28,53 @@ export const fetchAllProducts = createAsyncThunk(
         }
     }
 )
+export const createNewProduct = createAsyncThunk(
+    'createProduct',
+    async (product: CreateProduct)=>{
+        try{
+            const result = await axios.post<Product[]>("https://api.escuelajs.co/api/v1/products",product)
+            return result.data
+        }
+        catch(e){
+            const error = e as AxiosError
+            return error.message
+        }
+    }
+)
+export const deleteProduct = createAsyncThunk(
+    'deleteProduct',
+    async (productId: number)=>{
+        try{
+            const result = await axios.delete(`https://api.escuelajs.co/api/v1/products/${productId}`)
+            return result.data
+        }
+        catch(e){
+            const error = e as AxiosError
+            return error.message
+        }
+    }
+)
+export const updateExistingProduct = createAsyncThunk(
+    "updateProduct",
+    async(product: ProductUpdate) =>{
+        try{
+            const result = await axios.put<Product>(`https://api.escuelajs.co/api/v1/products/${product.id}`,product)
+            return result.data
+        }
+        catch(e){
+            const error = e as AxiosError
+            return error.message
+        }
+    }
+)
 const productsSlice = createSlice({
     name: "products",
     initialState,
     reducers:{
-        createProduct: (state, action:PayloadAction<Product>)=>{
-            state.products.push(action.payload)
-        },
-        removeProduct: (state, action: PayloadAction<number>)=>{
-            const id = action.payload
-            return{
-                ...state,
-                products: state.products.filter(product =>product.id !==id)
-            }
-        },
         emptyProductsReducer: (state)=>{
             return{
                 ...state,
                 products:[]
-            }
-        },
-        updateProduct: (state, action: PayloadAction<Product>) => {
-            return {
-                ...state,
-                products: state.products.map(product => 
-                    product.id !== action.payload.id ? product : action.payload)
             }
         },
         sortProductsByPrice: (state, action: PayloadAction<string>)=>{
@@ -59,6 +84,16 @@ const productsSlice = createSlice({
             else if(action.payload === "asc"){
                 state.products.sort((a,b)=> a.price - b.price)
             }
+        },
+        sortProductsByCategory: (state, action: PayloadAction<"asc"|"dsc">)=>{
+            state.products.sort((a, b) => {
+                if (action.payload === "asc") {
+                    return a.category.name.localeCompare(b.category.name)
+                }
+                else {
+                    return b.category.name.localeCompare(a.category.name)
+                }
+            })
         }
     }, 
     extraReducers: (build) => {
@@ -78,15 +113,31 @@ const productsSlice = createSlice({
                     state.products = action.payload
                 }
             })
+            .addCase(createNewProduct.fulfilled,(state,action)=>{
+                state.loading = true
+                state.error =""
+            })
+            .addCase(updateExistingProduct.fulfilled,(state,action)=>{
+                state.loading = false
+                if(typeof action.payload === "string"){
+                    state.error = action.payload
+                }
+                else if ((action.payload as Product).id){
+                    const updatedId = state.products.findIndex((product) =>product.id === (action.payload as Product).id)
+                    if (updatedId !== -1) {
+                        state.products[updatedId] = action.payload as Product
+                    }
+                }
+            })
+            .addCase(updateExistingProduct.rejected, (state) =>{
+                state.error = "error updating product"
+                state.loading = false
+            })
+            .addCase (deleteProduct.fulfilled, (state, action) => {
+                state.products.filter((product) => product.id !== action.payload.id)
+            })
     } 
 })
-export const 
-    {
-        createProduct,
-        removeProduct,
-        emptyProductsReducer,
-        updateProduct,
-        sortProductsByPrice
-    } = productsSlice.actions
+export const {emptyProductsReducer,sortProductsByPrice,sortProductsByCategory} = productsSlice.actions
 const productsReducer = productsSlice.reducer
 export default productsReducer
