@@ -21,7 +21,9 @@ export const fetchAllProducts = createAsyncThunk(
     async()=>{
         try{
             const result = await axios.get<Product[]>("https://api.escuelajs.co/api/v1/products")
+            console.log(result.data)
             return result.data
+            
         }
         catch(e){
             const error = e as AxiosError
@@ -29,8 +31,10 @@ export const fetchAllProducts = createAsyncThunk(
         }
     }
 )
+
+fetchAllProducts()
 export const createNewProduct = createAsyncThunk(
-    'createProduct',
+    'createNewProduct',
     async (product: NewProduct)=>{
         try{
             const result = await axios.post<Product>("https://api.escuelajs.co/api/v1/products",product)
@@ -157,4 +161,6 @@ const productsSlice = createSlice({
 })
 export const {emptyProductsReducer,sortProductsByPrice,sortProductsByCategory} = productsSlice.actions
 const productsReducer = productsSlice.reducer
-export default productsReducer
+export default productsReducer 
+
+

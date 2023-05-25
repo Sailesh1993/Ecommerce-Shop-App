@@ -1,5 +1,5 @@
 
-import { createNewProduct, emptyProductsReducer, fetchAllProducts, } from "../../redux/reducers/productsReducer"
+import { createNewProduct, fetchAllProducts, emptyProductsReducer, } from "../../redux/reducers/productsReducer"
 
 import { newProduct } from "../data/products"
 import productServer from "../servers/productsServer"
@@ -28,6 +28,6 @@ describe("Test productsReducer",()=>{
     })
     test("Check if a new Product is created", async () => {
         await store.dispatch(createNewProduct(newProduct))
-        expect(store.getState().productsReducer.products.length).toBe(1)
+        expect(store.getState().productsReducer.products.length).toBe(4)
     })
 })

@@ -1,14 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productsReducer from "./reducers/productsReducer";
 import usersReducer from "./reducers/usersReducer";
-import shopCartReducer from "./reducers/shopCartReducer";
+
 
 const store = configureStore({
     reducer: {
         productsReducer,
-        usersReducer,
-        shopCartReducer,
-        
+        usersReducer,  
     }
 })
 export type GlobalState = ReturnType<typeof store.getState>

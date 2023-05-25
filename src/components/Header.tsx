@@ -1,20 +1,15 @@
-import {Link as RouterLink, useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux"
-import useAppSelector from "../hooks/useAppSelector"
+import {Link as RouterLink} from 'react-router-dom'
 import { AppBar, Box, IconButton, Link, Toolbar } from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
 
 const Header = ()=>{
-    const dispatch = useDispatch()
-    const shoppngCart = useAppSelector(state => state.shopCartReducer)
-    const navigate = useNavigate()
 
     return(
-        <AppBar sx={{height: '80px',backgroundColor: '#fff'}}>
+        <AppBar sx={{height: '80px',backgroundColor: '#717171'}}>
             <Toolbar sx={{justifyContent: 'space-between'}}>
-            <Link variant='body2' component={RouterLink} to='/' underline="none"></Link>
+            <Link variant='body2' component={RouterLink} to='/' underline="none">   </Link>
             <Box role='navigation' sx={{
                 display: 'flex',
                 alignItems: 'center',    
@@ -23,11 +18,11 @@ const Header = ()=>{
                 <Link variant='body2' component={RouterLink} to='/' underline="none">
                     HOME
                 </Link>
-                <Link variant='body2' component={RouterLink} to='products' underline="none">
+                <Link variant='body2' component={RouterLink} to='products'  underline="none">
                     PRODUCTS
                 </Link>
                 <Box sx={{position: 'relative'}}>
-                    <IconButton aria-label='link to shopping cart' onClick={() => navigate('/shopping-cart')}>
+                    <IconButton aria-label='link to shopping cart'>
                         <ShoppingCartIcon/>
                     </IconButton>
                     <Box sx={{
@@ -43,7 +38,7 @@ const Header = ()=>{
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
-                    }}>{shoppngCart.productsInCart.length}</Box>
+                    }}></Box>
                 </Box>
             </Box>
             </Toolbar>

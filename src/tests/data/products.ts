@@ -1,7 +1,7 @@
 
 import NewProduct from "../../types/NewProduct";
 import { Product } from "../../types/Product";
-import { category1, category2, category3, category4 } from "./categories";
+import { category1, category2, category3} from "./categories";
 
 const product1: Product = {
     id: 1,

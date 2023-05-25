@@ -1,10 +1,11 @@
 import React from 'react'
 import { TableCell, TableRow } from '@mui/material'
-import ProductsInCart from '../types/ProductsInCart'
+import ProductInCart from '../types/ProductsInCart'
+
 
 
 interface ShopCartRow{
-    productInCart: ProductsInCart
+    productInCart: ProductInCart
 }
 const ShopCartRow = ({productInCart}: ShopCartRow) => {
   return (

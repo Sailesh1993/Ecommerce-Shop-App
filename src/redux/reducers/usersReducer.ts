@@ -1,7 +1,7 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { User } from "../../types/User";
-import axios, { AxiosError } from "axios";
-import { UserUpdate } from "../../types/UserUpdate";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { User } from "../../types/User"
+import axios, { AxiosError } from "axios"
+
 
 const initialState:{
     users: User[],

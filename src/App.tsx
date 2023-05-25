@@ -1,21 +1,16 @@
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from "./pages/HomePage"
-import ShoppingCartPage from './pages/ShoppingCartPage';
 import { StyledEngineProvider } from '@mui/material';
+import ProductsPage from './pages/ProductsPage';
+import HomePage from './pages/HomePage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element:<Home/>,
+    element:<HomePage/>,
     children:[
       {
         path: 'products',
-        element: <Home />
-      },
-      {
-        path: 'shopping-cart',
-        element: <ShoppingCartPage />
+        element: <ProductsPage />
       }
     ]
   }
@@ -23,7 +18,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <div>
-      <StyledEngineProvider injectFirst>
+      <StyledEngineProvider>
         <RouterProvider router={router}/>
       </StyledEngineProvider>
     </div>
