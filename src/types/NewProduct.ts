@@ -1,7 +1,9 @@
+import { Category } from "./Category"
+
 interface NewProduct{
     title: string
+    description: string
     price: number
-    description:string
     categoryId: number
     images: string[]
 }

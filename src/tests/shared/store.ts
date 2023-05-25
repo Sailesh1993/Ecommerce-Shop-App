@@ -8,7 +8,6 @@ const store = configureStore({
         productsReducer,
         usersReducer,
         shopCartReducer
-
     }
 })
 export default store

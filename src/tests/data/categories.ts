@@ -2,22 +2,23 @@ import { Category } from "../../types/Category";
 
 const category1: Category = {
     id: 1,
-    name: "Leather",
-    images:[''],
-    url: ''
+    name: "A category",
+    image: ""
 }
+
 const category2: Category = {
     id: 2,
-    name: "Jeans",
-    images:[''],
-    url: ''
+    name: "B category",
+    image: ""
 }
+
 const category3: Category = {
     id: 3,
-    name: "Synthetic",
-    images:[''],
-    url: ''
+    name: "C category",
+    image: ""
 }
-const categories = [category1, category2,category3]
-export {category1, category2,category3}
+
+const categories = [category1, category2, category3] 
+
+export { category1, category2, category3 }
 export default categories

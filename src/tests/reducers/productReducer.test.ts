@@ -1,14 +1,21 @@
 
 import { createNewProduct, emptyProductsReducer, fetchAllProducts, } from "../../redux/reducers/productsReducer"
-import { invalidProduct } from "../data/product"
 
+import { newProduct } from "../data/products"
+import productServer from "../servers/productsServer"
 import store from "../shared/store"
 
 beforeEach(() => {
     store.dispatch(emptyProductsReducer)
 })
-describe("Testing productsReducer",()=>{
-    test("check initialState",()=>{
+beforeAll(()=>{
+    productServer.listen()
+})
+afterAll(()=>{
+    productServer.close()
+})
+describe("Test productsReducer",()=>{
+    test("Check initialState",()=>{
         expect(store.getState().productsReducer).toEqual({
             loading: false,
             error: "",
@@ -17,10 +24,10 @@ describe("Testing productsReducer",()=>{
     })
     test("Check fetchAllProducts", async()=>{
         await store.dispatch(fetchAllProducts())
-        expect(store.getState().productsReducer.products.length).toBe(204)
+        expect(store.getState().productsReducer.products.length).toBe(4)
     })
-    test("Check should  create new Product", async()=>{
-        await store.dispatch(createNewProduct(invalidProduct))
-        expect(store.getState().productsReducer.products.length).toBe(204)
+    test("Check if a new Product is created", async () => {
+        await store.dispatch(createNewProduct(newProduct))
+        expect(store.getState().productsReducer.products.length).toBe(1)
     })
 })
