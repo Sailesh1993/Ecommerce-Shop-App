@@ -90,9 +90,9 @@ const productsSlice = createSlice({
                 state.products.sort((a,b)=> a.price - b.price)
             }
         },
-        sortProductsByCategory: (state, action: PayloadAction<"asc"|"dsc">)=>{
+        sortProductsByCategory: (state, action: PayloadAction<string>)=>{
             state.products.sort((a, b) => {
-                if (action.payload === "asc") {
+                if (action.payload === "dsc") {
                     return a.category.name.localeCompare(b.category.name)
                 }
                 else {

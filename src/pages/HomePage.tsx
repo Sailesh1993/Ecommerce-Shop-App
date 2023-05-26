@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
-import Header from '../components/Header'
+import React from 'react'
 
-import ProductsList from '../components/ProductsList'
+import Header from '../components/Header'
 import ProductsPage from './ProductsPage'
+import RegisterationPage from './RegistrationPage'
 
 const HomePage = () => {
   return (
    <div>
     <Header/>
-    <ProductsPage/>
+    {/* <ProductsPage/> */}
+    <RegisterationPage/>
    </div>
   )
 }

@@ -3,23 +3,23 @@ import { Product } from '../types/Product'
 import { Link as RouterLink } from 'react-router-dom'
 import { Paper, Link, Grid, Box, Typography } from '@mui/material'
 
-interface ProductOnGridProps {
+interface GridProductsProps {
     product: Product
 }
-const GridProducts = ({product}: ProductOnGridProps) => {
+const GridProducts = ({product}: GridProductsProps) => {
     const child = useMemo(()=>{
         return(
             <Paper sx={{
-                padding: '0.2em',
-                backgroundColor: '#ebebeb'
+                padding: '0.7em',
+                backgroundColor: '#c5cae9'
                 }}>
                 <Link aria-label={`Link to product page: ${product.title}`} color={'secondary.light'} sx={{
                 textDecoration: 'none'}} component={RouterLink} to={`/products/${product.id}`}>
                     <Box sx={{
                     background: `url(${product.images[0]}) center `,
-                    height: '100px'
+                    height: '15em'
                 }}></Box>
-                <Typography variant='h3'>
+                <Typography variant='h6'color={'#212121'}>
                     {product.title}
                 </Typography>
                 </Link>
