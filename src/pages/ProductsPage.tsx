@@ -9,6 +9,7 @@ import GridProducts from '../components/GridProducts'
 import { Box, Button, Container, Grid, Input, Pagination } from "@mui/material"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import Header from '../components/Header'
 const ProductsPage = () => {
     const dispatch = useAppDispatch()
     useEffect(()=>{
@@ -28,7 +29,8 @@ useEffect(() => {
 const { categories } = useAppSelector(state => state.categoryReducer)
 const categoryList = categories.map(item => item.name)
 categoryList.push('Show all')
-const handleCategoryClck = (item: string) => setCategory(item)
+const handleCategoryClick = (item: string) => setCategory(item)
+
 const productsOfCategory = productsReducer.products.filter(item => category === 'Show all' ? item : item.category.name === category ? item : null)
 const filterFunc = (filter: string, products: Product[]): Product[] => {
   return products.filter(item => item.title.toLowerCase().includes(filter.toLowerCase()))
@@ -56,8 +58,9 @@ return (
       display: 'flex',
       flexDirection: 'column'
     }}>
+      <Header/>
       <Box sx={{ display: 'flex', gap: 2, marginBottom: 3}}>
-        {categoryList.map(item => <Button onClick={() => handleCategoryClck(item)} variant='outlined' color='secondary' key={item}>{item}</Button>)}
+        {categoryList.map(item => <Button onClick={() => handleCategoryClick(item)} variant='outlined' color='secondary' key={item}>{item}</Button>)}
       </Box>
       <Box sx={{ display: 'flex', gap: 2, marginBottom: 3}}>
       <Input 

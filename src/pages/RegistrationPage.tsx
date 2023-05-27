@@ -3,7 +3,6 @@ import { Avatar, Box, Button, Container, CssBaseline, Grid, TextField, ThemeProv
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import { createUser } from "../redux/reducers/userReducer"
-import { AnyAction, Dispatch } from "@reduxjs/toolkit"
 import useAppDispatch from "../hooks/useAppDispatch"
 
 const Copyright = (props: any) => {
@@ -19,21 +18,40 @@ const Copyright = (props: any) => {
     )
 }
 const defaultTheme = createTheme()
-const RegisterationPage = () => {
-  const dispatch = useAppDispatch();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [avatar, setAvatar] = useState('');
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      dispatch(createUser({ name, email, password, avatar }));
+const RegisterationPage = () => {
+const dispatch = useAppDispatch()
+
+const [name, setName] = useState('')
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+const [confirmPassword, setConfirmPassword] = useState('')
+const [avatar, setAvatar] = useState('')
+
+/* const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  
+dispatch(createUser({ name, email, password, avatar }))
+console.log('Dispatching createUser action');
+dispatch(createUser({ name, email, password, avatar }));
+
+try {
+  dispatch(createUser({ name, email, password, avatar }))
     } catch (error) {
-      console.log('Registration failed: ', error);
+      console.log('Registration failed: ', error)
     }
-  }
+} */
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(createUser({ name, email, password, avatar }))
+      .then((action) => {
+        const responseData = action.payload; // Access the response data from the action payload
+        console.log("User created:", responseData);
+      })
+      .catch((error) => {
+        console.log("Registration failed:", error);
+      });
+  };
   return(
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -62,6 +80,8 @@ const RegisterationPage = () => {
                               id="name"
                               label="Name"
                               autoFocus
+                              value={name}
+                             onChange={(e) => setName(e.target.value)}
                           />
                       </Grid>
                       <Grid item xs={12}>
@@ -72,27 +92,34 @@ const RegisterationPage = () => {
                               label="Email Address"
                               name="email"
                               autoComplete="email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                          />
+                      </Grid>
+                      <Grid item xs={12}>
+                          <TextField
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="new-password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                           />
                       </Grid>
                       <Grid item xs={12}>
                           <TextField
                               required
                               fullWidth
-                              name="password"
-                              label="Password"
-                              type="password"
-                              id="password"
-                              autoComplete="new-password"
-                          />
-                      </Grid>
-                      <Grid item xs={12}>
-                          <TextField
-                              required
-                              fullWidth
-                              name="confirm-password"
+                              name="confirmPassword"
                               label="Confirm Password"
                               type="password"
-                              id="password"
+                              id="confirm-password"
+                              value={confirmPassword}
+                              onChange={(e) => setConfirmPassword(e.target.value)}
+                              
                           />
                       </Grid>
                       <Grid item xs={12}>
@@ -103,6 +130,7 @@ const RegisterationPage = () => {
                               label="Avatar URL"
                               type="url"
                               id="avatar"
+                              onChange={(e) => setAvatar(e.target.value)}
                           />
                       </Grid>
                   </Grid>

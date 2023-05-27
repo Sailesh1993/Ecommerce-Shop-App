@@ -21,7 +21,6 @@ export const fetchAllProducts = createAsyncThunk(
     async()=>{
         try{
             const result = await axios.get<Product[]>("https://api.escuelajs.co/api/v1/products")
-            console.log(result.data)
             return result.data
             
         }

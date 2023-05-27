@@ -16,7 +16,7 @@ const Header = ()=>{
           <Link
             variant='body2'
             component={RouterLink}
-            to='products'
+            to='/products'
             underline='none'
             color={'#fff'}
             sx={{ marginLeft: '1em'}}

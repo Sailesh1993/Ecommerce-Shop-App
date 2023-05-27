@@ -8,7 +8,6 @@ const HomePage = () => {
   return (
    <div>
     <Header/>
-    {/* <ProductsPage/> */}
     <RegisterationPage/>
    </div>
   )

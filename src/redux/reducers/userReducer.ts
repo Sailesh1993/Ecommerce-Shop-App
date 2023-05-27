@@ -15,7 +15,7 @@ export const fetchAllUsers = createAsyncThunk(
     "fetchAllUsers",
     async () => {
         try {
-            const response = await axios.get<User[]>("https://api.escuelajs.co/api/v1}/users")
+            const response = await axios.get<User[]>("https://api.escuelajs.co/api/v1/users")
             return response.data
         }
         catch (e) {
@@ -44,7 +44,7 @@ export const getUserById = async (id: number) => {
 
 export const createUser = createAsyncThunk(
     "register", 
-    async (userData: NewUser) => {
+    async (userData: NewUser,{dispatch}) => {
     try {
         const response = await axios.post("https://api.escuelajs.co/api/v1/users", userData)
         return response.data

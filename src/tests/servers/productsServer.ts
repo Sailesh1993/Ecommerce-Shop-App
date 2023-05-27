@@ -13,7 +13,7 @@ const productServer = setupServer(
         )
     }),
     rest.post("https://api.escuelajs.co/api/v1/products/", async (req, res, ctx) => {
-        const newProduct = await req.json() as NewProduct
+        const newProduct: NewProduct = await req.json()
         const category = categories.find(c => c.id === newProduct.categoryId)
         const error: string[] = []
         let product: Product|null = null
