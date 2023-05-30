@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Product } from '../types/Product'
 import { Link as RouterLink } from 'react-router-dom'
 import { Paper, Link, Grid, Box, Typography } from '@mui/material'
+import { GridAddIcon, GridRemoveIcon } from '@mui/x-data-grid'
 
 interface GridProductsProps {
     product: Product
@@ -23,7 +24,14 @@ const GridProducts = ({product}: GridProductsProps) => {
                     {product.title}
                 </Typography>
                 </Link>
-                {product.price} €<br />
+                <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                    <Typography variant='h6'color={'#212121'}>{product.price}</Typography>
+                    <Box>
+                        <GridAddIcon />
+                        <GridRemoveIcon />
+                    </Box>
+                    
+                </Box>
             </Paper>
         )
     },[product])

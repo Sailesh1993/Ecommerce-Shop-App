@@ -10,6 +10,8 @@ import { Box, Button, Container, Grid, Input, Pagination } from "@mui/material"
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import Header from '../components/Header'
+
+
 const ProductsPage = () => {
     const dispatch = useAppDispatch()
     useEffect(()=>{
@@ -18,7 +20,7 @@ const ProductsPage = () => {
 const [page, setPage] = useState(1)
 const [itemOffset, setItemOffset] = useState(0)
 const [priceSort, setPriceSort] = useState<boolean>(true)
-  const [category, setCategory] = useState<string>('Show all')
+const [category, setCategory] = useState<string>('Show all')
 const [itemsPerPage, setItemsPerPage] = useState(24)
 const productsReducer = useAppSelector(state => state.productsReducer)
 useEffect(() => {
@@ -30,7 +32,6 @@ const { categories } = useAppSelector(state => state.categoryReducer)
 const categoryList = categories.map(item => item.name)
 categoryList.push('Show all')
 const handleCategoryClick = (item: string) => setCategory(item)
-
 const productsOfCategory = productsReducer.products.filter(item => category === 'Show all' ? item : item.category.name === category ? item : null)
 const filterFunc = (filter: string, products: Product[]): Product[] => {
   return products.filter(item => item.title.toLowerCase().includes(filter.toLowerCase()))
@@ -45,11 +46,11 @@ const displayItem = searchDebounce.filteredItems.slice(itemOffset,endOffset)
 const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
 }
-  const sortByPriceHandler = () => {
-    priceSort
-    ? dispatch(sortProductsByPrice('asc'))
-    : dispatch(sortProductsByPrice('desc')) 
-    setPriceSort(state => !state)
+const sortByPriceHandler = () => {
+  priceSort
+  ? dispatch(sortProductsByPrice('asc'))
+  : dispatch(sortProductsByPrice('desc')) 
+  setPriceSort(state => !state)
   }
 return (
   <Container maxWidth='lg' sx={{

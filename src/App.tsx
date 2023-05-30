@@ -1,30 +1,22 @@
-import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { StyledEngineProvider } from '@mui/material';
 import ProductsPage from './pages/ProductsPage';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import RegisterationPage from './pages/RegistrationPage';
+import LandingPage from './pages/LandingPage';
 
-/* const router = createBrowserRouter([
-  {
-    path: '/',
-    element:<HomePage/>,
-    children:[
-      {
-        path: '/products',
-        element: <ProductsPage />
-      }
-    ]
-  }
-]) */
 const App = () => {
   return (
     <div>
       <StyledEngineProvider>
-        {/* <RouterProvider router={router}/> */}
         <BrowserRouter>
       <Routes>
-         <Route path="/" element={<HomePage />} >
-        </Route> 
-        <Route path="/products" element={<ProductsPage />} />
+      <Route path='/' element={<LandingPage/>} />
+        <Route path='/home' element={<HomePage/>} />
+        <Route path='/login' element={<LoginPage/>} />
+        <Route path='/register' element={<RegisterationPage/>} />
+        <Route path="/products" element={<ProductsPage />}/>
       </Routes>
     </BrowserRouter>
 

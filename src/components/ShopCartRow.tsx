@@ -1,13 +1,12 @@
 import React from 'react'
 import { TableCell, TableRow } from '@mui/material'
-import ProductInCart from '../types/ProductsInCart'
+import ProductsInCart from '../types/ProductsInCart'
 
 
-
-interface ShopCartRow{
-    productInCart: ProductInCart
+interface ShoppingCartRow{
+    productInCart: ProductsInCart
 }
-const ShopCartRow = ({productInCart}: ShopCartRow) => {
+const ShoppingCartRow = ({productInCart}: ShoppingCartRow) => {
   return (
     <TableRow>
         <TableCell >{productInCart.product.id}</TableCell>
@@ -22,4 +21,4 @@ const ShopCartRow = ({productInCart}: ShopCartRow) => {
   )
 }
 
-export default ShopCartRow
+export default ShoppingCartRow

@@ -2,13 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { NewUser, User, UserCredentials, UserState } from "../../types/User"
 import axios, { AxiosError } from "axios"
 
-const BASE_URL = 'https://api.escuelajs.co/api/v1'
-
 const initialState: UserState = {
     users: [],
     loading: false,
     error: "",
-    isLoggedIn: false
+    isLoggedIn: false,
+    currentUser: undefined
 }
 
 export const fetchAllUsers = createAsyncThunk(
@@ -57,30 +56,29 @@ export const createUser = createAsyncThunk(
         return error.message
     }
 })
-
 export const login = createAsyncThunk(
     "login",
-    async (credentials: UserCredentials) => {
-        try {
-            const response = await axios.post(`${BASE_URL}/auth/login`, credentials)
-            localStorage.setItem("token", response.data.access_token)
-
-            const userResponse = await axios.get(`${BASE_URL}/auth/profile`, {
-                headers: {
-                    Authorization: `Bearer ${response.data.access_token}`,
-                }
-            })
-            return userResponse.data
+    async (credentials: UserCredentials, { rejectWithValue }) => {
+      try {
+        const response = await axios.post(`${'https://api.escuelajs.co/api/v1'}/auth/login`, credentials);
+        localStorage.setItem("token", response.data.access_token);
+  
+        const userResponse = await axios.get(`${'https://api.escuelajs.co/api/v1'}/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${response.data.access_token}`,
+          },
+        });
+        return userResponse.data;
+      } catch (e) {
+        const error = e as AxiosError;
+        if (error.response && error.response.status === 401) {
+         
+          return rejectWithValue("Invalid email or password");
         }
-        catch(e) {
-            const error = e as AxiosError
-            if (error.response) {
-                return JSON.stringify(error.response.data)
-            }
-            return error.message
-        }
+        return rejectWithValue(error.message);
+      }
     }
-)
+  );
 const usersSlice = createSlice({
     name: "users",
     initialState,
@@ -137,6 +135,7 @@ const usersSlice = createSlice({
                 state.loading = false;
                 state.error = ""
                 state.isLoggedIn = true
+                state.currentUser = action.payload
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;

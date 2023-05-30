@@ -27,25 +27,11 @@ const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 const [confirmPassword, setConfirmPassword] = useState('')
 const [avatar, setAvatar] = useState('')
-
-/* const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  
-dispatch(createUser({ name, email, password, avatar }))
-console.log('Dispatching createUser action');
-dispatch(createUser({ name, email, password, avatar }));
-
-try {
-  dispatch(createUser({ name, email, password, avatar }))
-    } catch (error) {
-      console.log('Registration failed: ', error)
-    }
-} */
 const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(createUser({ name, email, password, avatar }))
       .then((action) => {
-        const responseData = action.payload; // Access the response data from the action payload
+        const responseData = action.payload; 
         console.log("User created:", responseData);
       })
       .catch((error) => {
@@ -144,7 +130,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                   </Button>
                   <Grid container justifyContent="flex-end">
                       <Grid item>
-                          <Link to="/login" color="inherit">
+                          <Link to="/" color="inherit">
                               Already have an account? Sign in
                           </Link>
                       </Grid>
