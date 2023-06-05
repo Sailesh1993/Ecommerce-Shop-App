@@ -11,9 +11,7 @@ const ShoppingCartRow = ({productInCart}: ShoppingCartRow) => {
     <TableRow>
         <TableCell >{productInCart.product.id}</TableCell>
         <TableCell >{productInCart.product.title}</TableCell>
-        <TableCell>
-          {productInCart.product.price}
-        </TableCell>
+        <TableCell>{productInCart.product.price}</TableCell>
         <TableCell align="right">
           {productInCart.amount * productInCart.product.price}
         </TableCell>

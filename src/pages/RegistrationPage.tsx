@@ -136,7 +136,6 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                       </Grid>
                   </Grid>
               </Box>
-          <Copyright sx={{ mt: 5 }} />
       </Container>
         </ThemeProvider>
   )

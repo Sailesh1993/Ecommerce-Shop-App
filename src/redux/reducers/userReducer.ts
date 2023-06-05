@@ -7,7 +7,14 @@ const initialState: UserState = {
     loading: false,
     error: "",
     isLoggedIn: false,
-    currentUser: undefined
+    currentUser: {
+        id:0,
+        email:'',
+        password:'',
+        name:'',
+        role:'customer',
+        avatar:''
+    }
 }
 
 export const fetchAllUsers = createAsyncThunk(
@@ -60,25 +67,25 @@ export const login = createAsyncThunk(
     "login",
     async (credentials: UserCredentials, { rejectWithValue }) => {
       try {
-        const response = await axios.post(`${'https://api.escuelajs.co/api/v1'}/auth/login`, credentials);
+        const response = await axios.post('https://api.escuelajs.co/api/v1/auth/login', credentials);
         localStorage.setItem("token", response.data.access_token);
   
-        const userResponse = await axios.get(`${'https://api.escuelajs.co/api/v1'}/auth/profile`, {
+        const userResponse = await axios.get('https://api.escuelajs.co/api/v1/auth/profile', {
           headers: {
             Authorization: `Bearer ${response.data.access_token}`,
           },
-        });
+        })
         return userResponse.data;
       } catch (e) {
-        const error = e as AxiosError;
+        const error = e as AxiosError
         if (error.response && error.response.status === 401) {
          
           return rejectWithValue("Invalid email or password");
         }
-        return rejectWithValue(error.message);
+        return rejectWithValue(error.message)
       }
     }
-  );
+  )
 const usersSlice = createSlice({
     name: "users",
     initialState,

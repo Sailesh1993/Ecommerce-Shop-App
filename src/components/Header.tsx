@@ -1,16 +1,19 @@
 import {Link as RouterLink} from 'react-router-dom'
-import { AppBar, Box, IconButton, Link, Toolbar, colors } from "@mui/material"
+import { AppBar, Box, IconButton, Link, Toolbar} from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import useAppDispatch from '../hooks/useAppDispatch';
+import useAppSelector from '../hooks/useAppSelector';
 
 
 
 const Header = ()=>{
-
+  const dispatch = useAppDispatch()
+  const shoppingCart = useAppSelector(state => state.shoppingCartReducer)
     return(
         <AppBar sx={{ height: '80px', backgroundColor: '#c5cae9' }}>
-          <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Box role='navigation' sx={{ display: 'flex', alignItems: 'center' }}>
-            <Link variant='body2' component={RouterLink} to='/home' underline='none' color={'#fff'}>
+          <Toolbar sx={{ justifyContent: 'space-between'}}>
+            <Box role='navigation' sx={{ display: 'flex', alignItems: 'center'}}>
+            <Link variant='body2' component={RouterLink} to='/home' underline='none' color={'#030303'}>
               HOME
             </Link>
             <Link
@@ -18,11 +21,11 @@ const Header = ()=>{
               component={RouterLink}
               to='/products'
               underline='none'
-              color={'#fff'}
+              color={'#030303'}
               sx={{ marginLeft: '1em'}}
             >
               PRODUCTS
-            </Link>
+            </Link >
           </Box>
           <Box
             role='navigation'
@@ -33,9 +36,17 @@ const Header = ()=>{
             marginLeft: 'auto',
             }}
           >
+            <Link 
+            variant='body2'
+            component={RouterLink}
+            to='/cart'
+            underline='none'
+            color={'#fff'}
+            sx={{ marginLeft: '1em'}}>
           <IconButton aria-label='link to shopping cart'>
             <ShoppingCartIcon />
           </IconButton>
+          </Link>
           <Box
             sx={{
               fontSize: '0.6em',
@@ -51,7 +62,7 @@ const Header = ()=>{
               top: '17%',
               right: '1.2%',
             }}
-          ></Box>
+          >{shoppingCart.productsInCart.length}</Box>
         </Box>
       </Toolbar>
     </AppBar>

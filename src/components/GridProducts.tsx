@@ -3,6 +3,7 @@ import { Product } from '../types/Product'
 import { Link as RouterLink } from 'react-router-dom'
 import { Paper, Link, Grid, Box, Typography } from '@mui/material'
 import { GridAddIcon, GridRemoveIcon } from '@mui/x-data-grid'
+import AddInCart from './AddInCart'
 
 interface GridProductsProps {
     product: Product
@@ -25,12 +26,12 @@ const GridProducts = ({product}: GridProductsProps) => {
                 </Typography>
                 </Link>
                 <Box sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-                    <Typography variant='h6'color={'#212121'}>{product.price}</Typography>
-                    <Box>
+                    <Typography variant='h6'color={'#212121'}>{product.price} €</Typography>
+                    {/* <Box>
                         <GridAddIcon />
                         <GridRemoveIcon />
-                    </Box>
-                    
+                    </Box> */}
+                    <AddInCart product = {product}/>
                 </Box>
             </Paper>
         )
