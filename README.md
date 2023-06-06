@@ -44,4 +44,4 @@ FS15_FRONTEND-PROJECT
 ```
 
 # Result
-Deployment Link: 
+Deployment Link: (https://sailesh-ecommerce-project-integrify.netlify.app/)

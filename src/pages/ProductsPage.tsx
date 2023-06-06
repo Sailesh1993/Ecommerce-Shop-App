@@ -12,7 +12,6 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp"
 import Header from "../components/Header"
 import LoadingPage from "../components/LoadingPage"
 import { getAllCategories } from "../redux/reducers/categoryReducer"
-import { WidthFull } from "@mui/icons-material"
 
 const ProductsPage = () => {
   const dispatch = useAppDispatch()
