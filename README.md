@@ -1,11 +1,11 @@
-# Front-end Project
-- @Sailesh Karki
+# Front-end Project@Sailesh Karki
 # Summary
-This is a Front end Projects assigned by Integrify Academy Oy. It is a frontend module of a ecommerce web application and uses various technologies and packages as metioned.
+This is a Front end Projects assigned by Integrify Academy Oy. It is a frontend module of a ecommerce web application and uses various technologies and packages as metioned. The data was pulled from [Platzi Fake API]
 
 # Table of content
 - Technologies
 - Project Structure
+- Feature
 - Resut
 
 # Technologies
@@ -42,6 +42,13 @@ FS15_FRONTEND-PROJECT
 └───App.tsx
 └───index.tsx
 ```
-
+# Feature
+ - <b>Login</b>
+- <b>Register</b>
+- <b>Product Cart</b>
+- <b>Product Sorting</b>
+- <b>Product Category
+- <b>Product Search</b>
+- <b>Pagination</b>
 # Result
 Deployment Link: (https://sailesh-ecommerce-project-integrify.netlify.app/)

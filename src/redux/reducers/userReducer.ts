@@ -33,6 +33,22 @@ export const fetchAllUsers = createAsyncThunk(
         }
     }
 )
+export const authenticate = createAsyncThunk (
+    'getProfile',
+    async (access_token: string) => {
+        try {
+            const { data} = await axios.get<User>('https://api.escuelajs.co/api/v1/auth/profile',{
+                headers: {
+                    Authorization: `Bearer ${access_token}`
+                }
+            })
+            return data
+        } catch (e) {
+            const error = e as AxiosError
+            return error
+        }
+    }
+)
 
 export const getUserById = async (id: number) => {
     try {
@@ -147,6 +163,17 @@ const usersSlice = createSlice({
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+            })
+            .addCase(authenticate.fulfilled, (state, action) => {
+                if( action.payload instanceof AxiosError) {
+                    state.error = action.payload.message
+                } else {
+                    return {
+                        ...state, error:'', users: state.users.concat(action.payload),
+                        isLoggedIn:true
+                    }
+                }
+                state.loading = false
             })
     }
 })

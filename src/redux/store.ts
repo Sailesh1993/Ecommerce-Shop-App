@@ -3,13 +3,15 @@ import productsReducer from "./reducers/productsReducer"
 import userReducer from "./reducers/userReducer"
 import categoryReducer from "./reducers/categoryReducer"
 import shoppingCartReducer from "./reducers/shoppingCartReducer"
+import modalReducer from "./reducers/modalReducer"
 
 const store = configureStore({
     reducer: {
         productsReducer,
         userReducer,
         categoryReducer,
-        shoppingCartReducer
+        shoppingCartReducer,
+        modalReducer
     }
 })
 export type GlobalState = ReturnType<typeof store.getState>

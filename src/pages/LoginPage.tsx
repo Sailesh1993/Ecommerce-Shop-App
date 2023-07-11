@@ -24,7 +24,7 @@ const LoginPage = () => {
     dispatch(login({ email, password }))
       .unwrap()
       .then(() => {
-        navigate("/home")
+        navigate("/products")
       })
       .catch((error) => {
         if (error.message === "Invalid email or password") {
@@ -36,7 +36,6 @@ const LoginPage = () => {
   }
   return (
     <div>
-      <Header />
       <form onSubmit={handleSubmit(handleLogin)} style={{marginTop:'10%', marginLeft:'40%',}} >
         <Box className="form">
           <Typography component="h4" variant="h4">
