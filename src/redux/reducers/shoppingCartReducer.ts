@@ -26,10 +26,27 @@ const shoppingCartSlice = createSlice({
             }
 
         },
-        removeProduct: (state, action: PayloadAction<number>) => {
+        /* removeProduct: (state, action: PayloadAction<number>) => {
             return {
                 ...state,
-                productsInCart: state.productsInCart.filter(entry => entry.product.id !== action.payload)
+                productsInCart: state.productsInCart.filter(entry => 
+                    entry.product.id !== action.payload)
+            }
+        } */
+        removeProduct: (state, action: PayloadAction<number>) => {
+            const productIdToRemove = action.payload;
+            const existingProductIndex = state.productsInCart.findIndex(entry => entry.product.id === productIdToRemove);
+
+            if (existingProductIndex !== -1) {
+                const existingProduct = state.productsInCart[existingProductIndex];
+
+                if (existingProduct.amount > 1) {
+                    // Decrease the amount of the product by 1
+                    state.productsInCart[existingProductIndex].amount -= 1;
+                } else {
+                    // If the amount is 1, remove the product from the cart
+                    state.productsInCart.splice(existingProductIndex, 1);
+                }
             }
         },
         updateProduct: (state, action: PayloadAction<{id: number, amount: number}>) => {
