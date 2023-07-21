@@ -1,14 +1,52 @@
-import {Link as RouterLink} from 'react-router-dom'
-import { AppBar, Box, IconButton, Link, Toolbar} from "@mui/material"
+import {Link as RouterLink, useNavigate} from 'react-router-dom'
+import { AppBar, Box, IconButton, Link, Menu, MenuItem, Toolbar, Typography} from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useAppDispatch from '../hooks/useAppDispatch';
 import useAppSelector from '../hooks/useAppSelector';
+import { AccountCircleRounded} from '@mui/icons-material';
+import { useState } from 'react';
+import { setLoginVisibility, setRegistrationVisibility } from '../redux/reducers/modalReducer';
+import { logout } from '../redux/reducers/userReducer';
 
 
 
 const Header = ()=>{
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const dispatch = useAppDispatch()
   const shoppingCart = useAppSelector(state => state.shoppingCartReducer)
+  const user = useAppSelector(state => state.userReducer.currentUser)
+  const userMenuItems = user ? ['Profile', 'Logout'] : ['Login','Sign up']
+  if (user?.role === "admin") userMenuItems.unshift('Admin dashboard')
+  const navigate = useNavigate()
+  const handleMenuItemClick = (action:string) => {
+    switch (action){
+      case 'Logout':
+        dispatch(logout())
+        handleCloseUserMenu()
+        break
+      case 'Profile' :
+        navigate(`/users/profile`)
+        handleCloseUserMenu()
+        break
+      case 'Sign up':
+        dispatch(setRegistrationVisibility())
+        handleCloseUserMenu()
+        break
+      case 'login':
+        dispatch(setLoginVisibility())
+        handleCloseUserMenu()
+        break
+      case 'Admin dashboard':
+        navigate('/admin-dashboard')
+        break
+    }
+  }
+  const handleCloseUserMenu = () => { 
+    setAnchorElUser(null)
+  }
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget)
+  }
     return(
         <AppBar sx={{ height: '80px', backgroundColor: '#c5cae9' }}>
           <Toolbar sx={{ justifyContent: 'space-between'}}>
@@ -60,9 +98,33 @@ const Header = ()=>{
               alignItems: 'center',
               position: 'absolute',
               top: '17%',
-              right: '1.2%',
+              right: '4.2%',
             }}
-          >{shoppingCart.productsInCart.length}</Box>
+          >{shoppingCart.productsInCart.length}
+          </Box>
+          <IconButton onClick={handleOpenUserMenu}>
+            <AccountCircleRounded/>
+          </IconButton>
+          <Menu 
+            anchorEl={anchorElUser}
+            anchorOrigin= {{
+            vertical:'bottom',
+            horizontal:'right',
+            }}
+            keepMounted
+            transformOrigin={{
+            vertical:'bottom',
+            horizontal:'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {userMenuItems.map((item)=> (
+              <MenuItem key={item} onClick={()=> handleMenuItemClick(item)}>
+                <Typography textAlign="center">{item}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>
