@@ -1,4 +1,3 @@
-import React from 'react'
 import { Container, Typography } from '@mui/material'
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty'
 const LoadingPage = () => {

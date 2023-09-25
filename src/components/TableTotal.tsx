@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import ShoppingCart from '../types/ShoppingCart'
 import { TableCell, TableRow } from '@mui/material'
 

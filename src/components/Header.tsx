@@ -23,6 +23,7 @@ const Header = ()=>{
       case 'Logout':
         dispatch(logout())
         handleCloseUserMenu()
+        navigate(`/`)
         break
       case 'Profile' :
         navigate(`/users/profile`)
@@ -31,10 +32,12 @@ const Header = ()=>{
       case 'Sign up':
         dispatch(setRegistrationVisibility())
         handleCloseUserMenu()
+        navigate('/register')
         break
       case 'login':
         dispatch(setLoginVisibility())
         handleCloseUserMenu()
+        navigate('/login')
         break
       case 'Admin dashboard':
         navigate('/admin-dashboard')

@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { Product } from '../types/Product'
 import { Link as RouterLink } from 'react-router-dom'
 import { Paper, Link, Grid, Box, Typography } from '@mui/material'
-import { GridAddIcon, GridRemoveIcon } from '@mui/x-data-grid'
 import AddInCart from './AddInCart'
 
 interface GridProductsProps {

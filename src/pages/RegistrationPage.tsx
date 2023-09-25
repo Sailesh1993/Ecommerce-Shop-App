@@ -27,12 +27,21 @@ const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 const [confirmPassword, setConfirmPassword] = useState('')
 const [avatar, setAvatar] = useState('')
+const resetFormFields = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setAvatar('');
+  };
 const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(createUser({ name, email, password, avatar }))
       .then((action) => {
         const responseData = action.payload; 
         console.log("User created:", responseData);
+
+        resetFormFields();
       })
       .catch((error) => {
         console.log("Registration failed:", error);

@@ -50,7 +50,7 @@ export const getUserById = async (id: number) => {
 
 export const createUser = createAsyncThunk(
     "register", 
-    async (userData: NewUser,{dispatch}) => {
+    async (userData: NewUser) => {
     try {
         const response = await axios.post("https://api.escuelajs.co/api/v1/users", userData)
         return response.data

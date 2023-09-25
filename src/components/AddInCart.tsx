@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Product } from '../types/Product'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 import ShoppingCart from '../types/ShoppingCart'
 import ProductsInCart from '../types/ProductsInCart'
 import { addProduct, removeProduct } from '../redux/reducers/shoppingCartReducer'
-import { Button, IconButton, Tooltip } from '@mui/material'
+import { Button} from '@mui/material'
 import { GridAddIcon, GridRemoveIcon } from '@mui/x-data-grid'
 interface AddInCartProps{
     product: Product
